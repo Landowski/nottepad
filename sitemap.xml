@@ -1,0 +1,91 @@
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+  <!-- URLs em inglês -->
+  <url>
+    <loc>https://nottepad.com</loc>
+    <lastmod>2025-03-04T11:00:10+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+  <url>
+    <loc>https://nottepad.com/about</loc>
+    <lastmod>2025-03-04T11:00:10+00:00</lastmod>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://nottepad.com/contact</loc>
+    <lastmod>2025-03-04T11:00:10+00:00</lastmod>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://nottepad.com/privacy</loc>
+    <lastmod>2025-03-04T11:00:10+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>
+  
+  <!-- URLs em português -->
+  <url>
+    <loc>https://nottepad.com/pt-br/</loc>
+    <lastmod>2025-02-21T17:42:10+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+  <url>
+    <loc>https://nottepad.com/pt-br/sobre</loc>
+    <lastmod>2025-02-21T17:42:10+00:00</lastmod>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://nottepad.com/pt-br/contato</loc>
+    <lastmod>2025-02-22T17:50:10+00:00</lastmod>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://nottepad.com/pt-br/privacidade</loc>
+    <lastmod>2025-02-21T17:42:10+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- URLs em espanhol -->
+  <url>
+    <loc>https://nottepad.com/es/</loc>
+    <lastmod>2025-03-04T12:00:10+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+  <url>
+    <loc>https://nottepad.com/es/acerca-de</loc>
+    <lastmod>2025-03-04T12:00:10+00:00</lastmod>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://nottepad.com/es/contacto</loc>
+    <lastmod>2025-03-04T12:00:10+00:00</lastmod>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://nottepad.com/es/privacidad</loc>
+    <lastmod>2025-03-04T12:00:10+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>
+  
+    <!-- URLs em japonês -->
+  <url>
+    <loc>https://nottepad.com/ja/</loc>
+    <lastmod>2025-03-06T12:00:10+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+  <url>
+    <loc>https://nottepad.com/ja/ni-tsuite</loc>
+    <lastmod>2025-03-06T12:00:10+00:00</lastmod>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://nottepad.com/ja/sesshoku</loc>
+    <lastmod>2025-03-06T12:00:10+00:00</lastmod>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://nottepad.com/ja/puraibashi</loc>
+    <lastmod>2025-03-06T12:00:10+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>
+  
+</urlset>
