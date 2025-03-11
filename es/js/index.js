@@ -709,11 +709,9 @@ function createCookieConsent() {
 
     // Adiciona o conteúdo
     cookieConsent.innerHTML = `
-        <div class="cookie-header"><img src="../imagens/cookies.png" alt="Figura de cookies dibujada"><strong>Advertencia de cookies</strong></div>
-        <p style="font-size: 13px; color: #555;">Solo utilizamos cookies para mantener activa su sesión de inicio de sesión y garantizar una experiencia perfecta. 
-        No recogemos datos personales, no utilizamos cookies de terceros, redes sociales ni publicidad, 
-        ni rastreamos su actividad en el sitio.</p>
-        <button onclick="acceptCookies()">EFleminantendí</button>
+        <div class="cookie-header"><strong>Advertencia de cookies</strong></div>
+        <p style="font-size: 13px; color: #555;">Utilizamos cookies para mejorar tu experiencia. Al continuar, aceptas nuestra <a href="/cookie-policy" target="_blank">Política de cookies</a>.</p>
+        <button onclick="acceptCookies()">Entiendo y acepto</button>
     `;
 
     // Adiciona ao body
