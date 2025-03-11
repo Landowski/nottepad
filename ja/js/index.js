@@ -709,8 +709,8 @@ function createCookieConsent() {
 
     // Adiciona o conteúdo
     cookieConsent.innerHTML = `
-        <div class="cookie-header"><img src="../imagens/cookies.png" alt="描かれたクッキー図"><strong>クッキーに関する警告</strong></div>
-        <p style="font-size: 13px; color: #555;">弊社は、ログインセッションをアクティブに保ち、シームレスな体験を保証するためにのみクッキーを使用します。弊社は個人データを収集せず、サードパーティのクッキー、ソーシャルネットワーク、広告を使用しません。また、サイトでのお客様のアクティビティを追跡することもありません。</p>
+        <div class="cookie-header"><strong>クッキーに関する通知</strong></div>
+        <p style="font-size: 13px; color: #555;">エクスペリエンスを向上させるために Cookie を使用します。続行すると、 に同意したことになります。 <a href="/ja/kukkiporishi" target="_blank">Cookie ポリシー</a>。</p>
         <button onclick="acceptCookies()">分かりました</button>
     `;
 
