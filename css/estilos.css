@@ -820,7 +820,7 @@ th {
             max-width: 400px;
             background: white;
             padding: 20px;
-            border-radius: 8px;
+            border-radius: 3px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             bottom: 20px;
             right: 20px;
@@ -828,43 +828,43 @@ th {
             font-family: Arial, sans-serif;
         }
 
-        .cookie-consent h2 {
-            margin: 0 0 5px 0;
-            font-size: 1.2em;
-        }
+.cookie-consent h2 {
+    margin: 0 0 5px 0;
+    font-size: 1.2em;
+}
 
-        .cookie-consent h3 {
-            margin: 0 0 15px 0;
-            font-size: 1em;
-            color: #666;
-        }
+.cookie-consent h3 {
+    margin: 0 0 15px 0;
+    font-size: 1em;
+    color: #666;
+}
 
-        .cookie-consent p {
-            margin: 0 0 20px 0;
-            font-size: 0.9em;
-            line-height: 1.5;
-        }
+.cookie-consent p {
+    margin: 0 0 20px 0;
+    font-size: 0.9em;
+    line-height: 1.5;
+}
 
-        .cookie-consent button {
-            background: #2d6aff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.9em;
-        }
+.cookie-consent button {
+    background: #2d6aff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
 
-        .cookie-consent button:hover {
-            background: #0056b3;
-        }
+.cookie-consent button:hover {
+    background: #0056b3;
+}
 
-        .cookie-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
+.cookie-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
 
 @media screen and (max-width: 1280px) {
     .insertToDo {
