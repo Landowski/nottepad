@@ -709,11 +709,9 @@ function createCookieConsent() {
 
     // Adiciona o conteúdo
     cookieConsent.innerHTML = `
-        <div class="cookie-header"><img src="imagens/cookies.png" alt="Figura desenhada de biscoitos"><strong>Aviso sobre cookies</strong></div>
-        <p style="font-size: 13px; color: #555;">Utilizamos cookies apenas para manter sua sessão de login ativa e garantir uma experiência contínua. 
-           Não coletamos dados pessoais, não usamos cookies de terceiros, redes sociais ou publicidade, 
-           nem rastreamos sua atividade no site.</p>
-        <button onclick="acceptCookies()">Entendi</button>
+        <div class="cookie-header"><strong>Aviso sobre cookies</strong></div>
+        <p style="font-size: 13px; color: #555;">Utilizamos cookies para melhorar sua experiência. Ao continuar, você concorda com nossa <a href="/politica-cookies" target="_blank">Política de Cookies</a>.</p>
+        <button onclick="acceptCookies()">Entendi e aceito</button>
     `;
 
     // Adiciona ao body
