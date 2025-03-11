@@ -345,7 +345,7 @@ h3 {
     font-size: 26px;
     font-weight: bold;
     outline: 0;
-    padding: 15px;
+    padding: 10px 15px;
 }
 
 #note-details.light-mode input {
