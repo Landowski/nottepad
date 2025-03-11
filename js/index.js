@@ -710,7 +710,7 @@ function createCookieConsent() {
     // Adiciona o conteúdo
     cookieConsent.innerHTML = `
         <div class="cookie-header"><strong>Cookie warning</strong></div>
-        <p style="font-size: 13px; color: #555;">We use cookies to improve your experience. By continuing, you agree to our . <a href="/cookie-policy" target="_blank">Cookie Policy</a>.</p>
+        <p style="font-size: 13px; color: #555;">We use cookies to improve your experience. By continuing, you agree to our <a href="/cookie-policy" target="_blank">Cookie Policy</a>.</p>
         <button onclick="acceptCookies()">I understand and accept</button>
     `;
 
