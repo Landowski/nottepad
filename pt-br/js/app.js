@@ -592,7 +592,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
         } else {
             // Se o usuário não estiver logado, redireciona para a página raiz
-            window.location.href = '/';
+            window.location.href = '/pt-br';
         }
     });
 });
