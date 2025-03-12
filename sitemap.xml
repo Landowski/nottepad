@@ -21,6 +21,11 @@
     <lastmod>2025-03-04T11:00:10+00:00</lastmod>
     <priority>0.80</priority>
   </url>
+    <url>
+    <loc>https://nottepad.com/cookie-policy</loc>
+    <lastmod>2025-03-12T11:00:10+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>
   
   <!-- URLs em português -->
   <url>
@@ -41,6 +46,11 @@
   <url>
     <loc>https://nottepad.com/pt-br/privacidade</loc>
     <lastmod>2025-02-21T17:42:10+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>
+    <url>
+    <loc>https://nottepad.com/pt-br/politica-cookies</loc>
+    <lastmod>2025-02-12T17:42:10+00:00</lastmod>
     <priority>0.80</priority>
   </url>
 
@@ -65,6 +75,11 @@
     <lastmod>2025-03-04T12:00:10+00:00</lastmod>
     <priority>0.80</priority>
   </url>
+  <url>
+    <loc>https://nottepad.com/es/politica-cookies</loc>
+    <lastmod>2025-03-12T12:00:10+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>
   
     <!-- URLs em japonês -->
   <url>
@@ -85,6 +100,38 @@
   <url>
     <loc>https://nottepad.com/ja/puraibashi</loc>
     <lastmod>2025-03-06T12:00:10+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>
+    <url>
+    <loc>https://nottepad.com/ja/kukkiporishi</loc>
+    <lastmod>2025-03-12T12:00:10+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- URLs em russo -->
+  <url>
+    <loc>https://nottepad.com/ru/</loc>
+    <lastmod>2025-03-12T12:00:10+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+  <url>
+    <loc>https://nottepad.com/ru/o-programme</loc>
+    <lastmod>2025-03-12T12:00:10+00:00</lastmod>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://nottepad.com/ru/kontakt</loc>
+    <lastmod>2025-03-12T12:00:10+00:00</lastmod>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://nottepad.com/ru/konfidentsialnost</loc>
+    <lastmod>2025-03-12T12:00:10+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>
+    <url>
+    <loc>https://nottepad.com/ru/politika-cookies</loc>
+    <lastmod>2025-03-12T12:00:10+00:00</lastmod>
     <priority>0.80</priority>
   </url>
   
