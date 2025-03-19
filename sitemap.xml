@@ -2,7 +2,7 @@
 
   <!-- URLs em inglês -->
   <url>
-    <loc>https://nottepad.com</loc>
+    <loc>https://nottepad.com/</loc>
     <lastmod>2025-03-04T11:00:10+00:00</lastmod>
     <priority>1.00</priority>
   </url>
@@ -22,14 +22,14 @@
     <priority>0.80</priority>
   </url>
     <url>
-    <loc>https://nottepad.com/cookie-policy</loc>
+    <loc>https://nottepad.com/cookie-policy/</loc>
     <lastmod>2025-03-12T11:00:10+00:00</lastmod>
     <priority>0.80</priority>
   </url>
   
   <!-- URLs em português -->
   <url>
-    <loc>https://nottepad.com/pt-br</loc>
+    <loc>https://nottepad.com/pt-br/</loc>
     <lastmod>2025-02-21T17:42:10+00:00</lastmod>
     <priority>1.00</priority>
   </url>
@@ -56,7 +56,7 @@
 
   <!-- URLs em espanhol -->
   <url>
-    <loc>https://nottepad.com/es</loc>
+    <loc>https://nottepad.com/es/</loc>
     <lastmod>2025-03-04T12:00:10+00:00</lastmod>
     <priority>1.00</priority>
   </url>
@@ -83,7 +83,7 @@
   
     <!-- URLs em japonês -->
   <url>
-    <loc>https://nottepad.com/ja</loc>
+    <loc>https://nottepad.com/ja/</loc>
     <lastmod>2025-03-06T12:00:10+00:00</lastmod>
     <priority>1.00</priority>
   </url>
@@ -110,7 +110,7 @@
 
   <!-- URLs em russo -->
   <url>
-    <loc>https://nottepad.com/ru</loc>
+    <loc>https://nottepad.com/ru/</loc>
     <lastmod>2025-03-12T12:00:10+00:00</lastmod>
     <priority>1.00</priority>
   </url>
