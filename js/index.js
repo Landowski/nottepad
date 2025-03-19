@@ -37,17 +37,7 @@ let currentNoteId = null;
 
 // Listeners iniciais
 menu.addEventListener('click', toggleSidebar);
-signupLink.addEventListener('click', showLogin);
-loginLink.addEventListener('click', showSignUp);
-toggleLogin.addEventListener('click', passwordLogin);
-toggleSignUp.addEventListener('click', passwordSignUp);
-toggleVerify.addEventListener('click', passwordVerify);
 overlaySidebar.addEventListener('click', toggleSidebar);
-loginPopup.addEventListener('click', function(event) {
-    if (event.target === loginPopup) {
-        popupLogin();
-    }
-});
 
 toggleDark.addEventListener("click", () => {
     if (document.body.classList.contains('light-mode')) {
