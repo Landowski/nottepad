@@ -23,7 +23,6 @@ const home = document.getElementById("home");
 const toggleDark = document.getElementById("dark-mode");
 const menu = document.getElementById("menu");
 const overlaySidebar = document.getElementById("overlay-sidebar");
-const toggleVerify = document.getElementById('btnToggleVerify');
 let notes = [];
 let currentNoteId = null;
 
