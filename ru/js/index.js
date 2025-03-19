@@ -425,16 +425,6 @@ function toggleSidebar(){
     overlaySidebar.classList.toggle('active');
 }
 
-// Login e Cadastro
-function popupLogin() {
-    firebase.auth().onAuthStateChanged((user) => {
-            loginPopup.classList.toggle('hidden');
-            document.getElementById('login-form').reset();
-            document.getElementById('login-form-sign-up').reset();
-            showLogin();
-    });
-}
-
 // Cookies
 function createCookieConsent() {
     // Verifica se o usuário já aceitou os cookies
