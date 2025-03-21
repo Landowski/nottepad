@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: 'en' }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700" rel="stylesheet">
+    <link rel="preload" href="/css/style.css" as="style">
+    <link rel="stylesheet" href="/css/style.css">
+    <meta name="description" content="{{ page.description }}">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" sizes="24x24" />
+    <link rel="apple-touch-icon" href="/images/favicon.ico">
+    <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+    <link rel="alternate" hreflang="x-default" href="{{ site.url }}" />
+    {% for lang in site.languages %}
+    <link rel="alternate" hreflang="{{ lang[0] }}" href="{{ site.url }}{{ lang[1] }}" />
+    {% endfor %}
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "{{ page.title }}",
+            "url": "{{ site.url }}{{ page.url }}",
+            "description": "{{ page.description }}"
+        }
+    </script>
+</head>
+    <style>
+        h2 {
+            margin: 0;
+            font-size: 20px;
+            margin-bottom: 7px;
+        }
+
+        h3 {
+            margin: 0;
+            font-size: 18px;
+            margin-bottom: 7px;
+        }
+
+        .container {
+            width: 800px;
+            display: flex;
+            flex-direction: column;
+            margin: 0 auto;
+            text-align: justify;
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.5;
+        }
+
+        .container p {
+            margin: 0;
+            margin-bottom: 25px;
+        }
+        
+        ul {
+            margin-top: 0;
+            margin-bottom: 25px;
+        }
+    </style>
+</head>
+
+<body style="margin: 40px 0;">
+
+    <div class="container">
+
+        {{ content }}
+
+    </div>
+
+</body>
+</html>
