@@ -170,10 +170,10 @@ function renderNotesList() {
             <div class="dragNote">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="mdi-drag" width="21" height="21" viewBox="0 0 24 24" fill="currentColor"><path d="M7,19V17H9V19H7M11,19V17H13V19H11M15,19V17H17V19H15M7,15V13H9V15H7M11,15V13H13V15H11M15,15V13H17V15H15M7,11V9H9V11H7M11,11V9H13V11H11M15,11V9H17V11H15M7,7V5H9V7H7M11,7V5H13V7H11M15,7V5H17V7H15Z" /></svg>
             </div>
-                <span>${note.title || "Note"}</span>
+                <span>${note.title || window.i18n.note}</span>
         </div>
         <div class="note-actions">
-            <button class="delete-note light-mode" title="Delete note"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="mdi-trash-can-outline" width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z"/></svg></button>
+            <button class="delete-note light-mode" title="${window.i18n.deleteNote}"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="mdi-trash-can-outline" width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z"/></svg></button>
         </div>`;
         li.dataset.id = note.id;
 
@@ -295,7 +295,7 @@ noteBody.addEventListener('paste', function(e) {
 function addNote() {
     const newNote = {
         id: Date.now().toString(),
-        title: "New note",
+        title: window.i18n.newNote,
         body: "",
         order: notes.length
     };
@@ -380,7 +380,7 @@ listBtn.addEventListener('click', function() {
 
 linkBtn.addEventListener('click', function() {
     const range = saveSelection();
-    const url = prompt('Insert link', 'https://');
+    const url = prompt(window.i18n.insertLink, 'https://');
     if (url) {
         noteBody.focus();
         restoreSelection(range);
@@ -457,9 +457,9 @@ function createCookieConsent() {
 
     // Adiciona o conteúdo
     cookieConsent.innerHTML = `
-        <div class="cookie-header"><strong>Cookie warning</strong></div>
-        <p style="font-size: 13px; color: #555;">We use cookies to improve your experience. By continuing, you agree to our <a href="/cookie-policy" target="_blank">Cookie Policy</a>.</p>
-        <button onclick="acceptCookies()">I understand and accept</button>
+        <div class="cookie-header"><strong>${window.i18n.cookieHeader}</strong></div>
+        <p style="font-size: 13px; color: #555;">${window.i18n.cookieMessage} <a href="/cookie-policy" target="_blank">${window.i18n.cookiePolicy}</a>.</p>
+        <button onclick="acceptCookies()">${window.i18n.cookieAccept}</button>
     `;
 
     // Adiciona ao body

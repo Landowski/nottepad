@@ -3,4 +3,5 @@ url: "https://nottepad.com"
 plugins:
   - jekyll-sitemap
 languages:
+  en: "/"
   pt-BR: "/pt-br/"
