@@ -7,4 +7,4 @@ window.i18n = {
     "cookiePolicy": "Cookie Policy",
     "cookieAccept": "I understand and accept",
     "deleteNote": "Delete note"
-  };
+};

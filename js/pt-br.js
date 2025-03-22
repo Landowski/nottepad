@@ -7,4 +7,4 @@ window.i18n = {
     "cookiePolicy": "Política de Cookies",
     "cookieAccept": "Eu entendo e aceito",
     "deleteNote": "Excluir nota"
-  };
+};

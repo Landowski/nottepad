@@ -5,3 +5,11 @@ plugins:
 languages:
   en: "/"
   pt-br: "/pt-br/"
+  es: "/es/"
+  ja: "/ja/"
+  ru: "/ru/"
+  zh-cn: "/zh-cn/"
+  it: "/it/"
+  de: "/de/"
+  ko: "/ko/"
+  fr: "/fr/"
