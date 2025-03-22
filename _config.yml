@@ -4,4 +4,4 @@ plugins:
   - jekyll-sitemap
 languages:
   en: "/"
-  pt-BR: "/pt-br/"
+  pt-br: "/pt-br/"
