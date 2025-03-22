@@ -173,17 +173,27 @@ function renderNotesList() {
                 <span>${note.title || window.i18n.note}</span>
         </div>
         <div class="note-actions">
-            <button class="delete-note light-mode" title="${window.i18n.deleteNote}"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="mdi-trash-can-outline" width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z"/></svg></button>
+            <button class="delete-note light-mode" data-id="${note.id}" title="${window.i18n.deleteNote}"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="mdi-trash-can-outline" width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z"/></svg></button>
         </div>`;
         li.dataset.id = note.id;
 
-        const deleteButton = li.querySelector('.delete-note');
-        deleteButton.addEventListener("click", (event) => {
-            event.stopPropagation();
-            deleteNote(note.id);
+        // Adicione o event listener diretamente aqui
+        li.addEventListener("click", (event) => {
+            // Evita que o clique no botão de exclusão selecione a nota
+            if (!event.target.closest('.delete-note')) {
+                selectNote(note.id);
+            }
         });
 
-        li.addEventListener("click", () => selectNote(note.id));
+        // Adicione o event listener para o botão de exclusão diretamente aqui
+        const deleteButton = li.querySelector('.delete-note');
+        if (deleteButton) {
+            deleteButton.addEventListener("click", (event) => {
+                event.stopPropagation(); // Impede a propagação do evento para o li
+                const noteId = deleteButton.getAttribute('data-id');
+                deleteNote(noteId);
+            });
+        }
 
         if (note.id === currentNoteId) {
             li.classList.add("selected-note");
@@ -191,6 +201,9 @@ function renderNotesList() {
 
         notesList.appendChild(li);
     });
+
+    // Não é mais necessário chamar addDeleteEventListeners() aqui
+    // pois já adicionamos os listeners durante a criação dos elementos
 
     const items = document.querySelectorAll('#sidebar ul li');
     if (document.body.classList.contains('light-mode')) {
@@ -315,7 +328,7 @@ confirmDeleteButton.addEventListener("click", () => {
     deleteConfirmation.classList.add("hidden");
     noteDetails.classList.add("hidden");
     home.classList.remove("hidden");
-    renderNotesList();
+    renderNotesList(); // Esta função precisa adicionar novamente os event listeners
 });
 
 cancelDeleteButton.addEventListener("click", () => {
