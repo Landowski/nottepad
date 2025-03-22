@@ -1,4 +1,3 @@
-// Declarações
 const logo = document.querySelector(".logo");
 const notesList = document.getElementById("notes-list");
 const loadingMessage = document.getElementById("loading-message");
@@ -29,7 +28,6 @@ const content = document.querySelector(".content");
 let notes = [];
 let currentNoteId = null;
 
-// Listeners iniciais
 menu.addEventListener('click', toggleSidebar);
 overlaySidebar.addEventListener('click', toggleSidebar);
 closeSidebar.addEventListener('click', toggleSidebarDesktop);
@@ -57,7 +55,6 @@ logo.addEventListener("click", () => {
     currentNoteId = null;
 });
 
-// Início do local storage
 function initializeLocalStorage() {
     if (!localStorage.getItem('notes')) {
       localStorage.setItem('notes', JSON.stringify([]));
@@ -82,7 +79,6 @@ function applyStoredTheme() {
     }
 }          
 
-// Dark mode
 function applyDarkMode() {
     const items = document.querySelectorAll('#sidebar ul li');
     const botoes = document.querySelectorAll('.note-actions button');
@@ -157,8 +153,6 @@ function applyLightMode() {
     });
 }
 
-
-// CRUD das notas
 function renderNotesList() {
     notes.sort((a, b) => (a.order || 0) - (b.order || 0));
     notesList.innerHTML = "";
@@ -176,20 +170,16 @@ function renderNotesList() {
             <button class="delete-note light-mode" data-id="${note.id}" title="${window.i18n.deleteNote}"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="mdi-trash-can-outline" width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z"/></svg></button>
         </div>`;
         li.dataset.id = note.id;
-
-        // Adicione o event listener diretamente aqui
         li.addEventListener("click", (event) => {
-            // Evita que o clique no botão de exclusão selecione a nota
             if (!event.target.closest('.delete-note')) {
                 selectNote(note.id);
             }
         });
 
-        // Adicione o event listener para o botão de exclusão diretamente aqui
         const deleteButton = li.querySelector('.delete-note');
         if (deleteButton) {
             deleteButton.addEventListener("click", (event) => {
-                event.stopPropagation(); // Impede a propagação do evento para o li
+                event.stopPropagation();
                 const noteId = deleteButton.getAttribute('data-id');
                 deleteNote(noteId);
             });
@@ -201,9 +191,6 @@ function renderNotesList() {
 
         notesList.appendChild(li);
     });
-
-    // Não é mais necessário chamar addDeleteEventListeners() aqui
-    // pois já adicionamos os listeners durante a criação dos elementos
 
     const items = document.querySelectorAll('#sidebar ul li');
     if (document.body.classList.contains('light-mode')) {
@@ -328,15 +315,13 @@ confirmDeleteButton.addEventListener("click", () => {
     deleteConfirmation.classList.add("hidden");
     noteDetails.classList.add("hidden");
     home.classList.remove("hidden");
-    renderNotesList(); // Esta função precisa adicionar novamente os event listeners
+    renderNotesList();
 });
 
 cancelDeleteButton.addEventListener("click", () => {
     deleteConfirmation.classList.add("hidden");
 });
 
-
-// Menu de seleção
 noteBody.addEventListener('mouseup', function(event) {
     const selection = window.getSelection();
     if (selection.rangeCount > 0 && selection.toString().length > 0) {
@@ -435,7 +420,6 @@ function restoreSelection(range) {
     }
 }
 
-// Menu lateral e fundo de popup
 function toggleSidebar(){
     document.getElementById("sidebar").classList.toggle('active');
     overlaySidebar.classList.toggle('active');
@@ -457,40 +441,28 @@ function toggleSidebarDesktop() {
     }
 }  
 
-// Cookies
 function createCookieConsent() {
-    // Verifica se o usuário já aceitou os cookies
     if (localStorage.getItem('cookieConsent')) {
         return;
     }
-
-    // Cria o elemento do aviso
     const cookieConsent = document.createElement('div');
     cookieConsent.className = 'cookie-consent';
-
-    // Adiciona o conteúdo
     cookieConsent.innerHTML = `
         <div class="cookie-header"><strong>${window.i18n.cookieHeader}</strong></div>
         <p style="font-size: 13px; color: #555;">${window.i18n.cookieMessage} <a href="/cookie-policy" target="_blank">${window.i18n.cookiePolicy}</a>.</p>
         <button onclick="acceptCookies()">${window.i18n.cookieAccept}</button>
     `;
-
-    // Adiciona ao body
     document.body.appendChild(cookieConsent);
-    }
+}
 
 function acceptCookies() {
-    // Salva a preferência do usuário
     localStorage.setItem('cookieConsent', 'true');
-    
-    // Remove o aviso
     const cookieConsent = document.querySelector('.cookie-consent');
     if (cookieConsent) {
         cookieConsent.remove();
         }
-    }
+}
 
-// Inicialização
 applyStoredTheme();
 initializeLocalStorage();
 renderNotesList();
