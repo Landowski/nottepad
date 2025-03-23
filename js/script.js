@@ -446,9 +446,11 @@ function createCookieConsent() {
         return;
     }
     const htmlElement = document.documentElement;
-    const pageLang = htmlElement.getAttribute('lang') || 'en';
-    const langCode = pageLang.toLowerCase();
-    const cookiesLink = `/${langCode}/cookies`;
+    let pageLang = htmlElement.getAttribute('lang') || 'en';
+    pageLang = pageLang.toLowerCase();
+    const supportedLanguages = ['en', 'pt-br', 'es', 'ja', 'ru', 'zh-cn', 'it', 'de', 'ko', 'fr'];
+    const finalLangCode = supportedLanguages.includes(pageLang) ? pageLang : 'en';
+    const cookiesLink = finalLangCode === 'en' ? '/cookies' : `/${finalLangCode}/cookies`;
     const cookieConsent = document.createElement('div');
     cookieConsent.className = 'cookie-consent';
     cookieConsent.innerHTML = `
