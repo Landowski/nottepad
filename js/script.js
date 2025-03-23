@@ -445,8 +445,9 @@ function createCookieConsent() {
     if (localStorage.getItem('cookieConsent')) {
         return;
     }
-    const userLang = navigator.language || navigator.userLanguage;
-    const langCode = userLang.toLowerCase();
+    const htmlElement = document.documentElement;
+    const pageLang = htmlElement.getAttribute('lang') || 'en';
+    const langCode = pageLang.toLowerCase();
     const cookiesLink = `/${langCode}/cookies`;
     const cookieConsent = document.createElement('div');
     cookieConsent.className = 'cookie-consent';
