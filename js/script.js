@@ -445,11 +445,14 @@ function createCookieConsent() {
     if (localStorage.getItem('cookieConsent')) {
         return;
     }
+    const userLang = navigator.language || navigator.userLanguage;
+    const langCode = userLang.toLowerCase();
+    const cookiesLink = `/${langCode}/cookies`;
     const cookieConsent = document.createElement('div');
     cookieConsent.className = 'cookie-consent';
     cookieConsent.innerHTML = `
         <div class="cookie-header"><strong>${window.i18n.cookieHeader}</strong></div>
-        <p style="font-size: 13px; color: #555;">${window.i18n.cookieMessage} <a href="/cookie-policy" target="_blank">${window.i18n.cookiePolicy}</a>.</p>
+        <p style="font-size: 13px; color: #555;">${window.i18n.cookieMessage} <a href="${cookiesLink}" target="_blank">${window.i18n.cookiePolicy}</a>.</p>
         <button onclick="acceptCookies()">${window.i18n.cookieAccept}</button>
     `;
     document.body.appendChild(cookieConsent);
