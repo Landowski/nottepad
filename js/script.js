@@ -448,7 +448,7 @@ function createCookieConsent() {
     const htmlElement = document.documentElement;
     let pageLang = htmlElement.getAttribute('lang') || 'en';
     pageLang = pageLang.toLowerCase();
-    const supportedLanguages = ['en', 'pt-br', 'es', 'ja', 'ru', 'zh-cn', 'it', 'de', 'ko', 'fr'];
+    const supportedLanguages = ['en', 'pt-br', 'es', 'ja', 'ru', 'zh', 'it', 'de', 'ko', 'fr'];
     const finalLangCode = supportedLanguages.includes(pageLang) ? pageLang : 'en';
     const cookiesLink = finalLangCode === 'en' ? '/cookies' : `/${finalLangCode}/cookies`;
     const cookieConsent = document.createElement('div');
