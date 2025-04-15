@@ -373,6 +373,11 @@ function applyLightMode() {
 }
 
 function renderNotesList() {
+    notes.forEach((note, index) => {
+        if (note.order === undefined) {
+            note.order = index;
+        }
+    });
     notes.sort((a, b) => (a.order || 0) - (b.order || 0));
     notesList.innerHTML = "";
     notes.forEach(note => {
@@ -491,9 +496,11 @@ function saveNote() {
     const index = notes.findIndex(n => n.id === note.id);
     if (index !== -1) {
         note.createdAt = notes[index].createdAt || new Date().toISOString();
+        note.order = notes[index].order || 0;
         notes[index] = note;
     } else {
         note.createdAt = new Date().toISOString();
+        note.order = notes.length;
         notes.push(note);
     }
     saveNotes();
