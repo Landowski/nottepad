@@ -1,6 +1,6 @@
 :root {
     --font: "Roboto", sans-serif;
-    --blue: #2D6AFF;
+    --blue: #2684fc;
     --black: #111;
     --green: #66BB6A;
     --red: #EF5350;
@@ -30,7 +30,7 @@ body {
 }
 
 body.light-mode {
-    background-color: #fff;
+    background-color: #f9fbfd;
     color: var(--black);
     color-scheme: light;
 }
@@ -59,6 +59,14 @@ h3 {
     user-select: none;
 }
 
+#wall {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: #fff;
+    z-index: 99999999999999;
+}
+
 .container {
     display: none;
     width: 100%;
@@ -72,7 +80,7 @@ h3 {
     position: fixed;
     top: 20px;
     bottom: 20px;
-    left: 10px;
+    left: 20px;
     transition: all 300ms linear;
     z-index: 999999 !important;
 }
@@ -130,7 +138,7 @@ h3 {
 #toggle-sidebar {
     position: fixed;
     top: 20px;
-    left: 240px;
+    left: 250px;
     cursor: pointer;
     z-index: 9999999;
 }
@@ -182,7 +190,7 @@ h3 {
 }
 
 #sidebar.dark-mode ul::-webkit-scrollbar-thumb {
-    background: #222 !important;
+    background: #444 !important;
     border-radius: 360px;
 }
 
@@ -202,6 +210,24 @@ h3 {
     border-radius: 3px;
 }
 
+#sidebar li.light-mode {
+    background-color: #f9fbfd;
+    color: var(--black);
+}
+
+#sidebar li.dark-mode {
+    background-color: #181818;
+    color: #DBDBDB;
+}
+
+#sidebar li.light-mode:hover {
+    background-color: #f0f4f9;
+}
+
+#sidebar li.dark-mode:hover {
+    background-color: #252525;
+}
+
 .dragAndSpan {
     display: flex;
     align-items: center;
@@ -218,32 +244,14 @@ h3 {
     word-break: break-word;
 }
 
-#sidebar li.light-mode {
-    background-color: #fff;
-    color: var(--black);
-}
-
-#sidebar li.dark-mode {
-    background-color: #181818;
-    color: #DBDBDB;
-}
-
-#sidebar li.light-mode:hover {
-    background-color: #f5f5f5;
-}
-
-#sidebar li.dark-mode:hover {
-    background-color: #252525;
-}
-
 .selected-note {
     font-weight: bold;
     border-radius: 3px;
-    background-color: #f5f5f5;
+    background-color: #f0f4f9;
 }
 
 .selected-note.light-mode {
-    background-color: #f5f5f5 !important;
+    background-color: #f0f4f9 !important;
     color: var(--blue) !important;
 }
 
@@ -252,9 +260,81 @@ h3 {
     color: var(--blue) !important;
 }
 
+#loginBtn {
+    position: relative;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    margin-top: auto;
+    margin-right: 20px;
+    background-color: var(--blue);
+    font-weight: 700;
+    color: white;
+    gap: 6px;
+    border-radius: 6px;
+    padding: 10px 0;
+    cursor: pointer;
+    box-shadow: 0px 5px 20px -5px rgba(0,0,0,0.6);
+}
+
+#loginBtn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.config {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+    margin-right: 20px;
+    border-radius: 6px;
+    padding: 0;
+    background-color: transparent;
+}
+
+.config button {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    gap: 2px;
+    font-size: 14px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.config button.light-mode {
+    color: #888;
+}
+
+#config:hover {
+    color: var(--blue);
+}
+
+#user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    user-select: none;
+}
+
+.user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd;
+}
+
+#logout:hover {
+    color: var(--red);
+}
+
 .content {
     width: 860px;
-    padding: 30px;
+    padding: 20px 30px 30px 30px;
     margin: 0 auto;
 }
 
@@ -271,21 +351,18 @@ h3 {
     font-size: 18px;
     font-weight: bold;
     outline: 0;
-    padding: 10px 15px;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    margin-bottom: 10px;
 }
 
 #note-details.light-mode input {
     color: var(--black);
-    background-color: #f9f9f9;
-    border: 1px solid #d5d5d5;
-    border-bottom: 0;
 }
 
 #note-details.dark-mode input {
     color: #DBDBDB;
-    border: 1px solid #404040;
-    background-color: #252525;
-    border-bottom: 0;
 }
 
 .title {
@@ -308,7 +385,7 @@ h3 {
 }
 
 #note-body.light-mode {
-    border: 1px solid #d5d5d5;
+    border: 1px solid #c7c7c7;
     background-color: #fff;
 }
 
@@ -326,6 +403,13 @@ h3 {
     margin-block-start: 0;
     margin-block-end: 0;
     padding-inline-start: 20px;
+}
+
+[contentEditable=true]:empty:not(:focus):before{
+    content: attr(placeholder);
+    pointer-events: none;
+    color: #aaa;
+    display: block;
 }
 
 .note-actions {
@@ -415,8 +499,10 @@ h3 {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 5px;
     border: 0;
+    outline: none;
+    padding: 0;
+    background-color: transparent;
     cursor: pointer;
     border-radius: 360px;
     position: absolute;
@@ -426,20 +512,14 @@ h3 {
 
 #dark-mode.light-mode {
     color: var(--black);
-    background-color: #fff;
 }
 
 #dark-mode.dark-mode {
     color: #999;
-    background-color: transparent;
 }
 
-#dark-mode.light-mode:hover {
-    background-color: #ebebeb;
-}
-
-#dark-mode.dark-mode:hover {
-    background-color: #383838;
+#dark-mode:hover {
+    color: var(--blue);
 }
 
 #home {
@@ -475,7 +555,7 @@ h3 {
 }
 
 #text-editor::placeholder {
-    color: #C0C0C0;
+    color: #aaa;
 }
 
 #text-editor:focus::placeholder {
@@ -483,7 +563,7 @@ h3 {
 }
 
 #text-editor.light-mode {
-    border: 1px solid #d5d5d5;
+    border: 1px solid #c7c7c7;
     background-color: #fff;
 }
 
@@ -591,13 +671,6 @@ h3 {
 
 #config-popup:not(.hidden) {
     visibility: visible;
-}
-
-[contentEditable=true]:empty:not(:focus):before{
-    content: attr(placeholder);
-    pointer-events: none;
-    color: #C0C0C0;
-    display: block;
 }
 
 .cookie-consent {
