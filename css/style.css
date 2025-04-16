@@ -73,7 +73,7 @@ h3 {
     height: 100%;
 }
 
-#sidebar {
+# {
     width: 240px;
     display: flex;
     flex-direction: column;
@@ -752,7 +752,7 @@ h3 {
     }
 
     #sidebar.light-mode {
-        background-color: #fff;
+        background-color: #f9fbfd;
     }
 
     #sidebar.dark-mode {
