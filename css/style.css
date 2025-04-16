@@ -30,7 +30,7 @@ body {
 }
 
 body.light-mode {
-    background-color: #f9fbfd;
+    background-color: #fff;
     color: var(--black);
     color-scheme: light;
 }
@@ -211,7 +211,7 @@ h3 {
 }
 
 #sidebar li.light-mode {
-    background-color: #f9fbfd;
+    background-color: #fff;
     color: var(--black);
 }
 
@@ -752,7 +752,7 @@ h3 {
     }
 
     #sidebar.light-mode {
-        background-color: #f9fbfd;
+        background-color: #fff;
     }
 
     #sidebar.dark-mode {
