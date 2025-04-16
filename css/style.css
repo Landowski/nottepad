@@ -247,7 +247,7 @@ h3 {
 .selected-note {
     font-weight: bold;
     border-radius: 3px;
-    background-color: #f0f4f9;
+    background-color: #f0f0f0;
 }
 
 .selected-note.light-mode {
