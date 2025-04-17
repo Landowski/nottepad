@@ -251,7 +251,7 @@ h3 {
 }
 
 .selected-note.light-mode {
-    background-color: #f0f4f9 !important;
+    background-color: #f0f0f0 !important;
     color: var(--blue) !important;
 }
 
