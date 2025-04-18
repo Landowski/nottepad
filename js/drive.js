@@ -182,17 +182,18 @@ logo.addEventListener("click", () => {
 });
 
 async function ensureNottepadFolderExists() {
+    if (nottepadFolderId) return;
+
     try {
         const response = await gapi.client.drive.files.list({
-            q: `name='${FOLDER_NAME}' and mimeType='application/vnd.google-apps.folder' and trashed=false`,
-            fields: 'files(id, name)'
+            q: `name='${FOLDER_NAME}' and mimeType='application/vnd.google-apps.folder' and trashed=false and 'root' in parents`,
+            fields: 'files(id, name)',
+            spaces: 'drive',
         });
-
         if (response.result.files && response.result.files.length > 0) {
             nottepadFolderId = response.result.files[0].id;
             return;
         }
-
         const createResponse = await gapi.client.drive.files.create({
             resource: {
                 name: FOLDER_NAME,
@@ -200,7 +201,6 @@ async function ensureNottepadFolderExists() {
             },
             fields: 'id'
         });
-
         nottepadFolderId = createResponse.result.id;
     } catch (error) {
         console.error('Error checking/creating Nottepad folder:', error);
@@ -212,12 +212,15 @@ async function findOrCreateJsonFile() {
     loadingMessage.style.display = "flex";  
     try {
         await ensureNottepadFolderExists();
+        if (jsonFileId) {
+            await loadNotesFromDrive();
+            return;
+        }
         const response = await gapi.client.drive.files.list({
             q: `name='${JSON_FILENAME}' and '${nottepadFolderId}' in parents and trashed=false`,
             fields: 'files(id, name)',
             spaces: 'drive',
         });
-        
         if (response.result.files && response.result.files.length > 0) {
             jsonFileId = response.result.files[0].id;
             await loadNotesFromDrive();
