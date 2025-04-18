@@ -181,57 +181,147 @@ logo.addEventListener("click", () => {
     currentNoteId = null;
 });
 
-async function ensureNottepadFolderExists() {
-    if (nottepadFolderId) return;
+let folderCreationInProgress = false;
+let jsonCreationInProgress = false;
 
+async function ensureNottepadFolderExists() {
+    if (nottepadFolderId) return nottepadFolderId;
+    if (folderCreationInProgress) {
+        // Aguardar a conclusão da criação em andamento
+        await new Promise(resolve => {
+            const check = setInterval(() => {
+                if (!folderCreationInProgress) {
+                    clearInterval(check);
+                    resolve();
+                }
+            }, 100);
+        });
+        return nottepadFolderId;
+    }
+
+    folderCreationInProgress = true;
+    
     try {
+        // Consulta mais específica para evitar falsos positivos
         const response = await gapi.client.drive.files.list({
             q: `name='${FOLDER_NAME}' and mimeType='application/vnd.google-apps.folder' and trashed=false and 'root' in parents`,
-            fields: 'files(id, name)',
+            fields: 'files(id, name, createdTime)',
             spaces: 'drive',
+            orderBy: 'createdTime desc',
+            pageSize: 1
         });
+
+        // Se encontrou pasta existente, usar a mais recente
         if (response.result.files && response.result.files.length > 0) {
             nottepadFolderId = response.result.files[0].id;
-            return;
+            return nottepadFolderId;
         }
+
+        // Se não encontrou, criar nova pasta
         const createResponse = await gapi.client.drive.files.create({
             resource: {
                 name: FOLDER_NAME,
-                mimeType: 'application/vnd.google-apps.folder'
+                mimeType: 'application/vnd.google-apps.folder',
+                parents: ['root']
             },
             fields: 'id'
         });
+
         nottepadFolderId = createResponse.result.id;
+        return nottepadFolderId;
     } catch (error) {
         console.error('Error checking/creating Nottepad folder:', error);
         throw error;
+    } finally {
+        folderCreationInProgress = false;
     }
 }
 
 async function findOrCreateJsonFile() {
-    loadingMessage.style.display = "flex";  
+    if (jsonFileId) return;
+    if (jsonCreationInProgress) {
+        await new Promise(resolve => {
+            const check = setInterval(() => {
+                if (!jsonCreationInProgress) {
+                    clearInterval(check);
+                    resolve();
+                }
+            }, 100);
+        });
+        return;
+    }
+
+    jsonCreationInProgress = true;
+    loadingMessage.style.display = "flex";
+
     try {
         await ensureNottepadFolderExists();
-        if (jsonFileId) {
-            await loadNotesFromDrive();
-            return;
-        }
+
+        // Consulta específica para o arquivo JSON
         const response = await gapi.client.drive.files.list({
             q: `name='${JSON_FILENAME}' and '${nottepadFolderId}' in parents and trashed=false`,
-            fields: 'files(id, name)',
+            fields: 'files(id, name, createdTime)',
             spaces: 'drive',
+            orderBy: 'createdTime desc',
+            pageSize: 1
         });
+
+        // Se encontrou arquivo existente, usar o mais recente
         if (response.result.files && response.result.files.length > 0) {
             jsonFileId = response.result.files[0].id;
             await loadNotesFromDrive();
-        } else {
-            await createNewJsonFile();
+            return;
         }
+
+        // Se não encontrou, criar novo arquivo
+        await createNewJsonFile();
     } catch (error) {
-        console.error('Error fetching/creating JSON file:', error);
-        alert('Error accessing Google Drive. Please try again.');
+        console.error('Error in findOrCreateJsonFile:', error);
+        // Tentar recuperar o estado consistente
+        await recoverFromInconsistentState();
     } finally {
         loadingMessage.style.display = "none";
+        jsonCreationInProgress = false;
+    }
+}
+
+async function recoverFromInconsistentState() {
+    try {
+        // Limpar cache para forçar nova verificação
+        nottepadFolderId = null;
+        jsonFileId = null;
+        
+        // Verificar todas as pastas com o nome correto
+        const foldersResponse = await gapi.client.drive.files.list({
+            q: `name='${FOLDER_NAME}' and mimeType='application/vnd.google-apps.folder' and trashed=false`,
+            fields: 'files(id, name, createdTime)',
+            orderBy: 'createdTime desc'
+        });
+
+        if (foldersResponse.result.files && foldersResponse.result.files.length > 0) {
+            // Usar a pasta mais recente
+            nottepadFolderId = foldersResponse.result.files[0].id;
+            
+            // Verificar arquivos JSON dentro dela
+            const jsonResponse = await gapi.client.drive.files.list({
+                q: `name='${JSON_FILENAME}' and '${nottepadFolderId}' in parents and trashed=false`,
+                fields: 'files(id, name, createdTime)',
+                orderBy: 'createdTime desc'
+            });
+
+            if (jsonResponse.result.files && jsonResponse.result.files.length > 0) {
+                // Usar o JSON mais recente
+                jsonFileId = jsonResponse.result.files[0].id;
+                return;
+            }
+        }
+
+        // Se chegou aqui, precisa criar do zero
+        await ensureNottepadFolderExists();
+        await createNewJsonFile();
+    } catch (error) {
+        console.error('Error in recoverFromInconsistentState:', error);
+        throw error;
     }
 }
 
