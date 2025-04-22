@@ -70,9 +70,9 @@ function handleAuthClick() {
             return;
         }
         const token = gapi.client.getToken();
-        localStorage.setItem('gapi_token', JSON.stringify(token));
+        localStorage.setItem('gapi_token_nottepad', JSON.stringify(token));
         const userInfo = await fetchUserInfo();
-        localStorage.setItem('googleUser', JSON.stringify(userInfo));
+        localStorage.setItem('googleUser_nottepad', JSON.stringify(userInfo));
         setTimeout(() => {
             window.location.href = 'app';
         }, 50);
