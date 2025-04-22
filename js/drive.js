@@ -63,8 +63,8 @@ function maybeEnableAuth() {
 }
 
 async function checkLoginStatus() {
-    const savedToken = localStorage.getItem('gapi_token');
-    const savedUser = localStorage.getItem('googleUser');
+    const savedToken = localStorage.getItem('gapi_token_nottepad');
+    const savedUser = localStorage.getItem('googleUser_nottepad');
     
     if (savedToken && savedUser) {
         try {
@@ -117,8 +117,8 @@ function handleSignOut() {
         gapi.client.setToken('');
     }
     
-    localStorage.removeItem('gapi_token');
-    localStorage.removeItem('googleUser');
+    localStorage.removeItem('gapi_token_nottepad');
+    localStorage.removeItem('googleUser_nottepad');
     showLoginView();
 }
 
