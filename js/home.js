@@ -142,6 +142,14 @@ const content = document.querySelector(".content");
 let notes = [];
 let currentNoteId = null;
 
+notesList.addEventListener("click", function(event) {
+    const deleteButton = event.target.closest('.delete-note');
+    if (deleteButton) {
+        event.stopPropagation();
+        const noteId = deleteButton.getAttribute('data-id');
+        deleteNote(noteId);
+    }
+});
 loginBtn.addEventListener('click', handleAuthClick);
 menu.addEventListener('click', toggleSidebar);
 overlaySidebar.addEventListener('click', toggleSidebar);
@@ -290,15 +298,6 @@ function renderNotesList() {
                 selectNote(note.id);
             }
         });
-
-        const deleteButton = li.querySelector('.delete-note');
-        if (deleteButton) {
-            deleteButton.addEventListener("click", (event) => {
-                event.stopPropagation();
-                const noteId = deleteButton.getAttribute('data-id');
-                deleteNote(noteId);
-            });
-        }
 
         if (note.id === currentNoteId) {
             li.classList.add("selected-note");
