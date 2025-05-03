@@ -56,6 +56,22 @@ function gisLoaded() {
     maybeEnableAuth();
 }
 
+function renewToken() {
+    return new Promise((resolve, reject) => {
+        tokenClient.callback = (resp) => {
+            if (resp.error) {
+                console.error("Error refreshing token:", resp.error);
+                reject(resp.error);
+                return;
+            }
+            const newToken = gapi.client.getToken();
+            localStorage.setItem('gapi_token_nottepad', JSON.stringify(newToken));
+            resolve(newToken);
+        };
+        tokenClient.requestAccessToken({ prompt: '' });
+    });
+}
+
 function maybeEnableAuth() {
     if (gapiInited && gisInited) {
         checkLoginStatus();
@@ -65,7 +81,7 @@ function maybeEnableAuth() {
 async function checkLoginStatus() {
     const savedToken = localStorage.getItem('gapi_token_nottepad');
     const savedUser = localStorage.getItem('googleUser_nottepad');
-    
+
     if (savedToken && savedUser) {
         try {
             const token = JSON.parse(savedToken);
@@ -78,8 +94,16 @@ async function checkLoginStatus() {
             const userInfo = JSON.parse(savedUser);
             onSuccessfulAuth(userInfo);
         } catch (error) {
-            console.log('Invalid or expired token:', error);
-            handleSignOut();
+            console.warn('Token expired, trying to refresh...');
+            try {
+                await renewToken();
+
+                const userInfo = JSON.parse(savedUser);
+                onSuccessfulAuth(userInfo);
+            } catch (renewError) {
+                console.error('Error refreshing token:', renewError);
+                handleSignOut();
+            }
         }
     } else {
         showLoginView();
@@ -97,6 +121,11 @@ function onSuccessfulAuth(userInfo) {
         userAvatar.src = `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%23666'/><text x='50' y='60' font-size='50' text-anchor='middle' fill='white'>${initials}</text></svg>`;
     }
     if (wall) wall.remove();
+    setInterval(() => {
+        renewToken().catch(err => {
+            console.error("Error refreshing token automatically:", err);
+        });
+    }, 50 * 60 * 1000);
     findOrCreateJsonFile();
 }
 
@@ -116,14 +145,12 @@ function handleSignOut() {
         google.accounts.oauth2.revoke(token.access_token);
         gapi.client.setToken('');
     }
-    
     localStorage.removeItem('gapi_token_nottepad');
     localStorage.removeItem('googleUser_nottepad');
     showLoginView();
 }
 
 logoutButton.addEventListener('click', handleSignOut);
-
 const logo = document.querySelector(".logo");
 const notesList = document.getElementById("notes-list");
 const loadingMessage = document.getElementById("loading-message");
@@ -187,7 +214,6 @@ let jsonCreationInProgress = false;
 async function ensureNottepadFolderExists() {
     if (nottepadFolderId) return nottepadFolderId;
     if (folderCreationInProgress) {
-        // Aguardar a conclusão da criação em andamento
         await new Promise(resolve => {
             const check = setInterval(() => {
                 if (!folderCreationInProgress) {
@@ -202,7 +228,6 @@ async function ensureNottepadFolderExists() {
     folderCreationInProgress = true;
     
     try {
-        // Consulta mais específica para evitar falsos positivos
         const response = await gapi.client.drive.files.list({
             q: `name='${FOLDER_NAME}' and mimeType='application/vnd.google-apps.folder' and trashed=false and 'root' in parents`,
             fields: 'files(id, name, createdTime)',
@@ -210,14 +235,10 @@ async function ensureNottepadFolderExists() {
             orderBy: 'createdTime desc',
             pageSize: 1
         });
-
-        // Se encontrou pasta existente, usar a mais recente
         if (response.result.files && response.result.files.length > 0) {
             nottepadFolderId = response.result.files[0].id;
             return nottepadFolderId;
         }
-
-        // Se não encontrou, criar nova pasta
         const createResponse = await gapi.client.drive.files.create({
             resource: {
                 name: FOLDER_NAME,
@@ -226,7 +247,6 @@ async function ensureNottepadFolderExists() {
             },
             fields: 'id'
         });
-
         nottepadFolderId = createResponse.result.id;
         return nottepadFolderId;
     } catch (error) {
@@ -256,8 +276,6 @@ async function findOrCreateJsonFile() {
 
     try {
         await ensureNottepadFolderExists();
-
-        // Consulta específica para o arquivo JSON
         const response = await gapi.client.drive.files.list({
             q: `name='${JSON_FILENAME}' and '${nottepadFolderId}' in parents and trashed=false`,
             fields: 'files(id, name, createdTime)',
@@ -265,19 +283,14 @@ async function findOrCreateJsonFile() {
             orderBy: 'createdTime desc',
             pageSize: 1
         });
-
-        // Se encontrou arquivo existente, usar o mais recente
         if (response.result.files && response.result.files.length > 0) {
             jsonFileId = response.result.files[0].id;
             await loadNotesFromDrive();
             return;
         }
-
-        // Se não encontrou, criar novo arquivo
         await createNewJsonFile();
     } catch (error) {
         console.error('Error in findOrCreateJsonFile:', error);
-        // Tentar recuperar o estado consistente
         await recoverFromInconsistentState();
     } finally {
         loadingMessage.style.display = "none";
@@ -287,36 +300,25 @@ async function findOrCreateJsonFile() {
 
 async function recoverFromInconsistentState() {
     try {
-        // Limpar cache para forçar nova verificação
         nottepadFolderId = null;
         jsonFileId = null;
-        
-        // Verificar todas as pastas com o nome correto
         const foldersResponse = await gapi.client.drive.files.list({
             q: `name='${FOLDER_NAME}' and mimeType='application/vnd.google-apps.folder' and trashed=false`,
             fields: 'files(id, name, createdTime)',
             orderBy: 'createdTime desc'
         });
-
         if (foldersResponse.result.files && foldersResponse.result.files.length > 0) {
-            // Usar a pasta mais recente
             nottepadFolderId = foldersResponse.result.files[0].id;
-            
-            // Verificar arquivos JSON dentro dela
             const jsonResponse = await gapi.client.drive.files.list({
                 q: `name='${JSON_FILENAME}' and '${nottepadFolderId}' in parents and trashed=false`,
                 fields: 'files(id, name, createdTime)',
                 orderBy: 'createdTime desc'
             });
-
             if (jsonResponse.result.files && jsonResponse.result.files.length > 0) {
-                // Usar o JSON mais recente
                 jsonFileId = jsonResponse.result.files[0].id;
                 return;
             }
         }
-
-        // Se chegou aqui, precisa criar do zero
         await ensureNottepadFolderExists();
         await createNewJsonFile();
     } catch (error) {
