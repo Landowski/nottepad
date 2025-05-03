@@ -58,20 +58,11 @@ function gisLoaded() {
 
 function renewToken() {
     return new Promise((resolve, reject) => {
-        let resolved = false;
-        const fallback = setTimeout(() => {
-            if (!resolved) {
-                alert("⚠️ Your browser has blocked the Google login popup. Please allow popups to continue using the app.");
-                reject(new Error("Popup blocked or not responded"));
-            }
-        }, 5000);
         tokenClient.callback = (resp) => {
-            resolved = true;
-            clearTimeout(fallback);
             if (resp.error) {
                 console.error("Error refreshing token:", resp.error);
                 if (resp.error === 'popup_blocked_by_browser') {
-                    alert("⚠️ Your browser has blocked the Google login popup. Please allow popups to continue using the app.");
+                    alert("⚠️ Please allow popups to continue using the app.");
                 }
                 reject(resp.error);
                 return;
