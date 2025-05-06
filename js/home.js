@@ -61,7 +61,23 @@ function maybeEnableLoginButton() {
 
 function handleAuthClick() {
     authInProgress = false;
-    
+    const popupWidth = 500;
+    const popupHeight = 600;
+    const left = Math.round((window.innerWidth - popupWidth) / 2) + window.screenX;
+    const top = Math.round((window.innerHeight - popupHeight) / 2) + window.screenY;
+    const popupOptions = {
+        width: popupWidth,
+        height: popupHeight,
+        left: left,
+        top: top
+    };
+    const originalOpen = window.open;
+    window.open = function(url, title, features) {
+        const customFeatures = `width=${popupWidth},height=${popupHeight},left=${left},top=${top},resizable=yes,scrollbars=yes`;
+        const popupWindow = originalOpen.call(this, url, title, customFeatures);
+        window.open = originalOpen;
+        return popupWindow;
+    };
     tokenClient.callback = async (resp) => {
         authInProgress = false;
         if (resp.error === "popup_closed") return;
